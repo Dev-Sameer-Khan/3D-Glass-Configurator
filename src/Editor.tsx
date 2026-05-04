@@ -429,25 +429,29 @@ export default function Editor() {
           </div>
 
           <div className="pt-6 border-t border-slate-200 mt-2 space-y-2">
-            <div className="flex items-center justify-between mb-4">
+            {product === "door" && (
+              <>
+              <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-semibold">
                 {isOpen ? "OPEN" : "CLOSED"}
               </span>
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`w-10 h-5 rounded-full relative transition-colors ${isOpen ? "bg-blue-900" : "bg-slate-300"}`}
-              >
+                >
                 <div
                   className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${isOpen ? "right-1" : "left-1"}`}
-                ></div>
+                  ></div>
               </button>
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="w-full py-3 bg-blue-900 hover:bg-blue-800 rounded font-bold text-xs uppercase tracking-widest transition-colors text-white"
-            >
+              >
               Toggle Animation
             </button>
+              </>
+            )}
             <button
               onClick={downloadSnapshot}
               className="w-full py-3 bg-white border border-slate-300 hover:bg-slate-50 rounded font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center justify-center gap-2"
