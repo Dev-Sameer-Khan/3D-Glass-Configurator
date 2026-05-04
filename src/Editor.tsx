@@ -114,7 +114,7 @@ export default function Editor() {
               <span className="flex items-center gap-2">
                 <Maximize2 size={14} className="text-blue-500" /> Width
               </span>
-              <div>
+              <div className="flex items-center gap-2">
                 <input
                   type="number"
                   min={500}
@@ -127,7 +127,7 @@ export default function Editor() {
                     v = Math.min(1500, Math.max(500, v));
                     setWidth(v / 1000);
                   }}
-                  className="bg-white/5 border border-white/10 px-2 py-1 rounded text-blue-400 font-mono text-[10px] w-fit text-right"
+                  className="bg-white/5 border border-white/10 px-2 py-1 rounded text-blue-400 font-mono text-[10px] w-fit text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   style={{ outline: 'none' }}
                   aria-label="Width in millimeters"
                 /> 
@@ -153,22 +153,23 @@ export default function Editor() {
               <span className="flex items-center gap-2">
                 <MoveVertical size={14} className="text-blue-500" /> Height
               </span>
-              <div>
+              <div className="flex items-center gap-2">
                 <input
                   type="number"
-                  min={500}
-                  max={1500}
+                  min={1000}
+                  max={2500}
                   step={1}
                   value={Math.round(height * 1000)}
                   onChange={e => {
                     let v = Number(e.target.value);
                     // Clamp and convert to meters
-                    v = Math.min(1500, Math.max(500, v));
+                    v = Math.min(2500, Math.max(1000, v));
                     setHeight(v / 1000);
                   }}
-                  className="bg-white/5 border border-white/10 px-2 py-1 rounded text-blue-400 font-mono text-[10px] w-fit text-right"
+                  className="bg-white/5 border border-white/10 px-2 py-1 rounded text-blue-400 font-mono text-[10px] w-fit text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   style={{ outline: 'none' }}
-                  aria-label="Width in millimeters"
+                  aria-label="Height in millimeters"
+          
                 /> 
                 <span>MM</span>
               </div>
