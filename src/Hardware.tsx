@@ -12,17 +12,18 @@ export function Hardware({ width, height }: HardwareProps) {
   
   // Offset 50mm from the top and bottom edge
   const verticalOffset = 0.05;
+  const horizontalOffset = 0.0005;
 
   return (
     <group>
       {/* Top Patch Fitting (Hinge) */}
-      <mesh position={[-width / 2 + patchWidth / 2, height / 2 - verticalOffset - patchHeight / 2, 0]} castShadow>
+      <mesh position={[-width / 2 + patchWidth / 2 - horizontalOffset, height / 2 - verticalOffset - patchHeight / 2, 0]} castShadow>
         <boxGeometry args={[patchWidth, patchHeight, patchDepth]} />
         <meshStandardMaterial color="#cbd5e1" metalness={0.85} roughness={0.2} />
       </mesh>
 
       {/* Bottom Patch Fitting (Hinge) */}
-      <mesh position={[-width / 2 + patchWidth / 2, -height / 2 + verticalOffset + patchHeight / 2, 0]} castShadow>
+      <mesh position={[-width / 2 + patchWidth / 2 - horizontalOffset, -height / 2 + verticalOffset + patchHeight / 2, 0]} castShadow>
         <boxGeometry args={[patchWidth, patchHeight, patchDepth]} />
         <meshStandardMaterial color="#cbd5e1" metalness={0.85} roughness={0.2} />
       </mesh>

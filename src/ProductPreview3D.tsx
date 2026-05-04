@@ -11,6 +11,7 @@ interface ProductPreview3DProps {
   product: ProductType;
   width: number;
   height: number;
+  depth?: number;
   isOpen: boolean;
   style: DoorStyle;
   glassType: GlassType;
@@ -20,6 +21,7 @@ export function ProductPreview3D({
   product,
   width,
   height,
+  depth = 0,
   isOpen,
   style,
   glassType,
@@ -62,18 +64,27 @@ export function ProductPreview3D({
   }
 
   if (product === 'shower-cubicle') {
-    const sideWidth = Math.max(0.45, width * 0.45);
+    const sideWidth = width;
     return (
-      <group>
+      <group position={[0,0,0]}>
         {/* Front panel */}
         <group position={[0, 0, 0]}>
           <GlassPane width={width} height={height} type={glassType} />
         </group>
-        {/* Side return panel for cubicle look */}
-        <group position={[width / 2 - 0.005, 0, -sideWidth / 2]} rotation={[0, Math.PI / 2, 0]}>
-          <GlassPane width={sideWidth} height={height} type={glassType} />
+        {/* Back panel */}
+        <group position={[0, 0, -depth - .0005]}>
+          <GlassPane width={width} height={height} type={glassType} />
         </group>
-        <Frame width={width} height={height} thickness={0.02} />
+        {/* Rigth panel for cubicle look */}
+        <group position={[width / 2 + 0.005, 0, -depth / 2 - .005]} rotation={[0, Math.PI / 2, 0]}>
+          <GlassPane width={depth} height={height} type={glassType} />
+        </group>
+        {/* Left panel for cubicle look */}
+        <group position={[-width / 2 + 0.005, 0, -depth / 2 - .005]} rotation={[0, Math.PI / 2, 0]}>
+          <GlassPane width={depth} height={height} type={glassType} />
+        </group>
+        <Hardware width={width} height={height} />
+        {/* <Frame width={width} height={height} thickness={0.02} /> */}
       </group>
     );
   }

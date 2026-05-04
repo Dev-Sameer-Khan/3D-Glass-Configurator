@@ -1,33 +1,60 @@
-import React from 'react';
-import { Line, Text } from '@react-three/drei';
+import React from "react";
+import { Line, Text } from "@react-three/drei";
 
 interface DimensionLinesProps {
   width: number;
   height: number;
+  depth: number;
+  isDepth: boolean;
 }
 
-export function DimensionLines({ width, height }: DimensionLinesProps) {
+export function DimensionLines({
+  width,
+  height,
+  depth,
+  isDepth,
+}: DimensionLinesProps) {
   const offset = 0.15; // Distance from the glass
   const color = "#3b82f6"; // Blue 500 for technical lines
 
   // Convert to millimeters for display
   const wMm = Math.round(width * 1000);
   const hMm = Math.round(height * 1000);
+  const dMm = Math.round(depth * 1000);
 
   return (
     <group>
       {/* Width Dimension (Bottom) */}
       <group position={[0, -height / 2 - offset, 0]}>
         {/* Main horizontal line */}
-        <Line points={[[-width / 2, 0, 0], [width / 2, 0, 0]]} color={color} lineWidth={1} />
+        <Line
+          points={[
+            [-width / 2, 0, 0],
+            [width / 2, 0, 0],
+          ]}
+          color={color}
+          lineWidth={1}
+        />
         {/* End caps */}
-        <Line points={[[-width / 2, 0.03, 0], [-width / 2, -0.03, 0]]} color={color} />
-        <Line points={[[width / 2, 0.03, 0], [width / 2, -0.03, 0]]} color={color} />
-        
-        <Text 
-          position={[0, -0.05, 0]} 
-          fontSize={0.06} 
-          color={color} 
+        <Line
+          points={[
+            [-width / 2, 0.03, 0],
+            [-width / 2, -0.03, 0],
+          ]}
+          color={color}
+        />
+        <Line
+          points={[
+            [width / 2, 0.03, 0],
+            [width / 2, -0.03, 0],
+          ]}
+          color={color}
+        />
+
+        <Text
+          position={[0, -0.05, 0]}
+          fontSize={0.06}
+          color={color}
           anchorY="top"
           font="/Gilroy-ExtraBold.otf"
         >
@@ -38,15 +65,34 @@ export function DimensionLines({ width, height }: DimensionLinesProps) {
       {/* Height Dimension (Right) */}
       <group position={[width / 2 + offset, 0, 0]}>
         {/* Main vertical line */}
-        <Line points={[[0, -height / 2, 0], [0, height / 2, 0]]} color={color} lineWidth={1} />
+        <Line
+          points={[
+            [0, -height / 2, 0],
+            [0, height / 2, 0],
+          ]}
+          color={color}
+          lineWidth={1}
+        />
         {/* End caps */}
-        <Line points={[[-0.03, -height / 2, 0], [0.03, -height / 2, 0]]} color={color} />
-        <Line points={[[-0.03, height / 2, 0], [0.03, height / 2, 0]]} color={color} />
-        
-        <Text 
-          position={[0.05, 0, 0]} 
-          fontSize={0.06} 
-          color={color} 
+        <Line
+          points={[
+            [-0.03, -height / 2, 0],
+            [0.03, -height / 2, 0],
+          ]}
+          color={color}
+        />
+        <Line
+          points={[
+            [-0.03, height / 2, 0],
+            [0.03, height / 2, 0],
+          ]}
+          color={color}
+        />
+
+        <Text
+          position={[0.05, 0, 0]}
+          fontSize={0.06}
+          color={color}
           anchorX="left"
           anchorY="middle"
           rotation={[0, 0, -Math.PI / 2]}
@@ -55,6 +101,47 @@ export function DimensionLines({ width, height }: DimensionLinesProps) {
           {hMm} mm
         </Text>
       </group>
+
+      {/* Depth Dimension (Bottom) */}
+      {isDepth && (
+        <group position={[offset, -height / 2 - offset, 0]}>
+          {/* Main horizontal line */}
+          <Line
+            points={[
+              [width / 2, 0, 0],
+              [width / 2, 0, -depth],
+            ]}
+            color={color}
+            lineWidth={1}
+          />
+          {/* End caps */}
+          <Line
+            points={[
+              [width / 2, 0.03, -depth],
+              [width / 2, -0.03, -depth],
+            ]}
+            color={color}
+          />
+          <Line
+            points={[
+              [width / 2, 0.03, 0],
+              [width / 2, -0.03, 0],
+            ]}
+            color={color}
+          />
+
+          <Text
+            position={[width/2, -0.05, -depth/2]}
+            rotation={[0,Math.PI/2,0]}
+            fontSize={0.06}
+            color={color}
+            anchorY="top"
+            font="/Gilroy-ExtraBold.otf"
+          >
+            {wMm} mm
+          </Text>
+        </group>
+      )}
     </group>
   );
 }

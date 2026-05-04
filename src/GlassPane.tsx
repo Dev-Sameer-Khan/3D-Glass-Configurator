@@ -1,3 +1,4 @@
+import { MeshTransmissionMaterial } from '@react-three/drei';
 import React from 'react';
 
 interface GlassPaneProps {
@@ -14,10 +15,10 @@ export function GlassPane({ width, height, type }: GlassPaneProps) {
     switch (type) {
       case 'frosted':
         return {
-          transmission: 0.9,
-          roughness: 0.7,
-          color: '#ffffff',
-          ior: 1.5,
+          transmission: .9,
+          roughness: 1,
+          color: '#999',
+          ior: 1.45,
           thickness: 0.05,
         };
       case 'tinted':
@@ -44,6 +45,11 @@ export function GlassPane({ width, height, type }: GlassPaneProps) {
     <mesh castShadow receiveShadow>
       <boxGeometry args={[width, height, thickness]} />
       <meshPhysicalMaterial transparent {...getMaterialProps()} />
+      {/* <MeshTransmissionMaterial 
+        transmission={.9}
+        thickness={.1}
+        color={'#ffffff'}
+      /> */}
     </mesh>
   );
 }
