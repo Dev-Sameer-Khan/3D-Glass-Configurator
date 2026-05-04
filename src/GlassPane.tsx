@@ -15,29 +15,45 @@ export function GlassPane({ width, height, type }: GlassPaneProps) {
     switch (type) {
       case 'frosted':
         return {
-          transmission: .9,
-          roughness: 1,
-          color: '#999',
-          ior: 1.45,
-          thickness: 0.05,
+          transmission: 1,
+          roughness: 0.72, // realistic moderate blur
+          color: '#d1d5db', // very light gray
+          ior: 1,
+          thickness: 0.011, // physically accurate glass
+          attenuationColor: '#b6bbc7', // a subtle blue-grey
+          attenuationDistance: 0.14, // how quickly color fades
+          envMapIntensity: 1.2,
+          clearcoat: 1,
+          clearcoatRoughness: 0.55,
         };
       case 'tinted':
         return {
-          transmission: 0.85,
-          roughness: 0.05,
-          color: '#94a3b8', // slate-400
+          transmission: 0.81,
+          roughness: 0.11,
+          color: '#64748b', // deeper blue/grey tint
           ior: 1.5,
-          thickness: 0.05,
+          thickness: 0.011,
+          attenuationColor: '#475569', // dark blue-grey
+          attenuationDistance: 0.08,
+          envMapIntensity: 1.25,
+          clearcoat: 1,
+          clearcoatRoughness: 0.2,
         };
       case 'clear':
       default:
         return {
           transmission: 1,
-          roughness: 0.02,
-          color: '#ffffff',
-          ior: 1.5,
-          thickness: 0.05, // Slightly exaggerated for R3F mapping to show volume
+          roughness: 0.06, // some micro-roughness avoids 'plastic' look
+          color: '#f1f5f9', // off-white for realism
+          ior: 1.52,
+          thickness: 0.011,
+          attenuationColor: '#e2e8f0', // subtle blue cast
+          attenuationDistance: 0.22,
+          envMapIntensity: 1.35,
+          clearcoat: 1,
+          clearcoatRoughness: 0.04,
         };
+   
     }
   };
 

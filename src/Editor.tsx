@@ -56,14 +56,14 @@ const PRODUCT_LABEL: Record<ProductType, string> = {
 };
 
 export default function Editor() {
-  const [product, setProduct] = useState<ProductType>("shower-cubicle");
+  const [product, setProduct] = useState<ProductType>("door");
   const [width, setWidth] = useState(1);
   const [height, setHeight] = useState(2.1);
   const [depth, setDepth] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [style, setStyle] = useState<"patch" | "frame">("patch");
   const [glassType, setGlassType] = useState<"clear" | "frosted" | "tinted">(
-    "frosted",
+    "clear",
   );
   const [quoteOpen, setQuoteOpen] = useState(false);
   const canvasRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -140,9 +140,9 @@ export default function Editor() {
         >
           {/* <color attach="background" args={['#222']} /> */}
           <Stats />
-          {/* <ambientLight intensity={0.6} />
+          <ambientLight intensity={0.6} />
           <directionalLight castShadow position={[5, 10, 5]} intensity={1.8} shadow-mapSize={[1024, 1024]} />
-          <Environment preset="apartment" /> */}
+          <Environment preset="apartment" />
           <group position={[0, height / 2, 0]}>
             <ProductPreview3D
               product={product}
@@ -166,7 +166,7 @@ export default function Editor() {
             minPolarAngle={Math.PI / 6}
             maxPolarAngle={Math.PI / 2 + 0.1}
           />
-          {/* <Grid
+          <Grid
             cellSize={0.5}
             cellThickness={0.5}
             cellColor="#3b82f6"
@@ -178,7 +178,7 @@ export default function Editor() {
             fadeDistance={100}
             fadeStrength={10}
             fadeFrom={1}
-          /> */}
+          />
         </Canvas>
         {/* <div
           className="absolute inset-0 opacity-30 pointer-events-none"

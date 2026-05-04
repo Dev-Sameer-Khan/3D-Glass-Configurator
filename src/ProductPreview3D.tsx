@@ -3,6 +3,12 @@ import { Frame } from './Frame';
 import { GlassPane } from './GlassPane';
 import { Hardware } from './Hardware';
 
+import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import { lerp } from 'three/src/math/MathUtils.js';
+
+
 type GlassType = 'clear' | 'frosted' | 'tinted';
 type DoorStyle = 'patch' | 'frame';
 type ProductType = 'door' | 'window' | 'shower-cubicle' | 'patch-fitting-door';
@@ -30,33 +36,35 @@ export function ProductPreview3D({
 
 
   if (product === 'window') {
-    const panelGap = 0.01;
+    const panelGap = 0.001;
     const panelWidth = width / 2 - panelGap;
-    const slidingOffset = isOpen ? panelWidth * 0.28 : 0;
+    
+    const slidingOffset = isOpen ? panelWidth : 0;
+
     // Style swap: 'frame' or 'patch'
     if (style === 'patch') {
       // Patch style - minimal frame, just glass panes (maybe thin border)
       return (
-        <group>
+        <group> 
           <group position={[-panelWidth / 2, 0, 0.005]}>
             <GlassPane width={panelWidth} height={height - 0.04} type={glassType} />
           </group>
-          <group position={[panelWidth / 2 - slidingOffset, 0, -0.005]}>
+          <group position={[panelWidth / 2 , 0, -0.005]}>
             <GlassPane width={panelWidth} height={height - 0.04} type={glassType} />
           </group>
-          <Hardware width={width} height={height}/>
+          <Hardware isWindow width={width} height={height}/>
         </group>
       );
     } else if (style === 'frame') {
       // Frame style - full window with visible frame
       return (
         <group>
-          <Frame width={width} height={height} thickness={0.03} />
+          <Frame isWindow={product === "window"} width={width} height={height} thickness={0.03} />
           <group position={[-panelWidth / 2, 0, 0.005]}>
-            <GlassPane width={panelWidth} height={height - 0.06} type={glassType} />
+            <GlassPane width={panelWidth} height={height} type={glassType} />
           </group>
-          <group position={[panelWidth / 2 - slidingOffset, 0, -0.005]}>
-            <GlassPane width={panelWidth} height={height - 0.06} type={glassType} />
+          <group position={[panelWidth / 2, 0, -0.005]}>
+            <GlassPane width={panelWidth} height={height} type={glassType} />
           </group>
         </group>
       );
@@ -69,6 +77,7 @@ export function ProductPreview3D({
       <group position={[0,0,0]}>
         {/* Front panel */}
         <group position={[0, 0, 0]}>
+        <Hardware width={width} height={height} />
           <GlassPane width={width} height={height} type={glassType} />
         </group>
         {/* Back panel */}
@@ -83,7 +92,6 @@ export function ProductPreview3D({
         <group position={[-width / 2 + 0.005, 0, -depth / 2 - .005]} rotation={[0, Math.PI / 2, 0]}>
           <GlassPane width={depth} height={height} type={glassType} />
         </group>
-        <Hardware width={width} height={height} />
         {/* <Frame width={width} height={height} thickness={0.02} /> */}
       </group>
     );
