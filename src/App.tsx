@@ -8,7 +8,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/3d" replace />} />
+        <Route path="/" element={<Navigate to="/2d" replace />} />
         <Route path="/2d" element={<Config/>} />
         <Route path="/3d" element={<Editor />} />
       </Routes>
